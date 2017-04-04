@@ -50,7 +50,7 @@
     {
       "name": "simple-view-line",
       "title": "tutorial-on-simple-views-line",
-      "resources": [0],
+      "resources": ["vix-daily"],
       "specType": "simple",
       "spec": {
         "type": "line",
