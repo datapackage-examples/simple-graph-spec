@@ -1,26 +1,35 @@
-This Data Package includes `views` attribute that defines data views such as graphs or tables based on the data in a Data Package. We use "Simple Graph Spec" in this Data Package, which is the quickest and easiest way to describe a graph:
+CBOE Volatility Index (VIX) time-series dataset for 2015-2016, including daily open, close, high and low. This is an example DataPackage that demonstrates usage of simple graph specifications for tabular data.
+
+## Views
+
+To create graphs for your tabular DataPackage, the `datapackage.json` should include the `views` attribute that defines data views. 
+
+### Simple Graph Specifcations
+
+We use "Simple Graph Spec" in this DataPackage, which is the quickest and easiest way to describe a graph:
 
 <script src="https://gist.github.com/anuveyatsu/87f164d04054f82189c86559f99546e7.js"></script>
 
-In the views spec, we use syntax called "Simple Graph Spec" - must be specified in `specType` attribute as `simple` (as in line 54). By providing only 3 attributes one can get a graph:
+To use "Simple Graphs Spec", `specType` inside `views` atribute should be set to `simple` - line 54.
 
-* `type` (string) - options are `line`, `bar` or `pie`
+There are only 3 properties enough to define graph sepcifications. They should be set inside `spec` attribute - line 55
 
-* `group` (string) - field name that will be used as a basis (normally it is date that is used as abscissa)
+| attribute            | type     | Description  |
+| :------------------ | :--------| :------------|
+| type   | String | line, bar, pie (defaults to line)|
+| group  | String | Field name, that will be used as abscissa (usually date field)|
+| series | Array | Field name(s) that will be used as ordinate|
 
-* `series` (array) - field(s) name that will be used as ordinate
+You can define multiple views for your DataPackage - In the first `view` we define graph `type` as a `line` (line 56). So the first graph above displays the line chart. In the second `view` we define it as a `bar` (line 67), so the second graph is a bar chart.
 
-In the first `view` we define graph `type` as `line` (line 56). So the first graph in this page is displaying line chart. In the second `view` we define it as `bar` (line 67), so the second graph is a bar chart.
-
-In our data `Date` field is a primary field so we use it as `group` and we can use other fields as `series`. We use `VIXHigh` and `VIXLow` fields as `series` so in the line chart we can see two lines being rendered. Similarly in the bar chart we use three series so they are rendered on top of each other.
+We use `Date` field to display data over time, by setting `group` attribute to the field name - line 57 and line 68. You can set any number of fields to display in `series` atribute as an array - line 58 and line 69.  In our case `VIXHigh` and `VIXLow` for first graph. Similarly, in the bar chart, we use three series, so all three are rendered in the second graph.
 
 
 Outside of `spec` attribute there are some other important parameters to note:
 
-* `name` (lines 51 and 62) - unique identifier for view within list of views.
-
-* `title` (lines 52 and 63) - title for this graph.
-
-* `resources` (lines 53 and 64) - data sources for this spec. It can be either resource name or index. In our example we use resource's name. By default it is the first resource.
-
-* `specType` (lines 54 and 65) - used for defining syntax. In this demo datapackage we use `simple` (Simple Graph Spec).
+| attribute           | type     | Description  |
+| :------------------ | :--------| :------------|
+| name   | String | Unique identifier for view within list of views (lines 51 and 62) |
+| title  | String | Title for the graph (lines 52 and 63)|
+| resources | Array | Data sources for this spec. It can be either resource name or index. By default it is the first resource (lines 53 and 64) |
+| specType | String | Available options: simple, vega, plotly **Required** |
