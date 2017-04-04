@@ -2,7 +2,7 @@ CBOE Volatility Index (VIX) time-series dataset for 2015-2016, including daily o
 
 ## Views
 
-To create graphs for your tabular DataPackage, the `datapackage.json` should include the `views` attribute that defines data views. 
+To create graphs for your tabular DataPackage, the `datapackage.json` should include the `views` attribute that defines data views.
 
 ### Simple Graph Specifcations
 
@@ -14,11 +14,32 @@ To use "Simple Graphs Spec", `specType` inside `views` atribute should be set to
 
 There are only 3 properties enough to define graph sepcifications. They should be set inside `spec` attribute - line 55
 
-| attribute            | type     | Description  |
-| :------------------ | :--------| :------------|
-| type   | String | line, bar, pie (defaults to line)|
-| group  | String | Field name, that will be used as abscissa (usually date field)|
-| series | Array | Field name(s) that will be used as ordinate|
+<table class="table table-bordered table-striped resource-summary">
+  <thead>
+   <tr>
+     <th>Attribute</th>
+     <th>Type</th>
+     <th>Description</th>
+   </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>type</th>
+      <td>String</td>
+      <td>line, bar, pie (defaults to line)</td>
+    </tr>
+    <tr>
+      <th>group</th>
+      <td>String</td>
+      <td>Field name, that will be used as abscissa (usually date field)</td>
+    </tr>
+    <tr>
+      <th>series</th>
+      <td>Array</td>
+      <td>Field name(s) that will be used as ordinate</td>
+    </tr>
+  </tbody>
+</table>
 
 You can define multiple views for your DataPackage - In the first `view` we define graph `type` as a `line` (line 56). So the first graph above displays the line chart. In the second `view` we define it as a `bar` (line 67), so the second graph is a bar chart.
 
@@ -27,9 +48,34 @@ We use `Date` field to display data over time, by setting `group` attribute to t
 
 Outside of `spec` attribute there are some other important parameters to note:
 
-| attribute           | type     | Description  |
-| :------------------ | :--------| :------------|
-| name   | String | Unique identifier for view within list of views (lines 51 and 62) |
-| title  | String | Title for the graph (lines 52 and 63)|
-| resources | Array | Data sources for this spec. It can be either resource name or index. By default it is the first resource (lines 53 and 64) |
-| specType | String | Available options: simple, vega, plotly **Required** |
+<table class="table table-bordered table-striped resource-summary">
+  <thead>
+   <tr>
+     <th>Attribute</th>
+     <th>Type</th>
+     <th>Description</th>
+   </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>name</th>
+      <td>String</td>
+      <td>Unique identifier for view within list of views (lines 51 and 62)</td>
+    </tr>
+    <tr>
+      <th>title</th>
+      <td>String</td>
+      <td>Title for the graph (lines 52 and 63)</td>
+    </tr>
+    <tr>
+      <th>resources</th>
+      <td>Array</td>
+      <td>Data sources for this spec. It can be either resource name or index. By default it is the first resource (lines 53 and 64)</td>
+    </tr>
+    <tr>
+      <th>specType</th>
+      <td>String</td>
+      <td>Available options: simple, vega, plotly <strong>(Required)</strong></td>
+    </tr>
+  </tbody>
+</table>
