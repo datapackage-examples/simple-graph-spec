@@ -1,18 +1,18 @@
-CBOE Volatility Index (VIX) time-series dataset for 2015-2016, including daily open, close, high and low. This is an example DataPackage that demonstrates usage of simple graph specifications for tabular data.
+This is an example Data Package, that demonstrates how to build the simple and nice graphs using the "Simple Graph Spec". We are using CBOE Volatility Index (VIX) time-series dataset for 2015-2016 as an example to create line and bar charts.
 
 ## Views
 
-To create graphs for your tabular DataPackage, the `datapackage.json` should include the `views` attribute that defines data views.
+We assume that you are familiar with what [datapackage.json][datapackage.json] is and it's specifications.
 
-### Simple Graph Specifcations
+To create graphs for your tabular Data Package, the `datapackage.json` should include the `views` attribute that is responsible for visualizations.
 
-We use "Simple Graph Spec" in this DataPackage, which is the quickest and easiest way to describe a graph:
+"Simple Graph Spec" is the quickest and easiest way to build a graph . To use it, inside `views` you should set `specType` to "simple" and define some graph specifications in `spec`. See example datapackage.json:
 
-<script src="https://gist.github.com/anuveyatsu/87f164d04054f82189c86559f99546e7.js"></script>
+{{ datapackage.json }}
 
-To use "Simple Graphs Spec", `specType` inside `views` atribute should be set to `simple` - line 54.
+<br>
 
-There are only 3 properties enough to define graph sepcifications. They should be set inside `spec` attribute - line 55
+inside `spec` attribute, there are only 3 properties enough to define graph specifications:
 
 <table class="table table-bordered table-striped resource-summary">
   <thead>
@@ -41,10 +41,51 @@ There are only 3 properties enough to define graph sepcifications. They should b
   </tbody>
 </table>
 
-You can define multiple views for your DataPackage - In the first `view` we define graph `type` as a `line` (line 56). So the first graph above displays the line chart. In the second `view` we define it as a `bar` (line 67), so the second graph is a bar chart.
+You can define multiple views for your Data Package. For example, to display line graph as presented above, we defined graph `type` to be a `line`
 
-We use `Date` field to display data over time, by setting `group` attribute to the field name - line 57 and line 68. You can set any number of fields to display in `series` atribute as an array - line 58 and line 69.  In our case `VIXHigh` and `VIXLow` for first graph. Similarly, in the bar chart, we use three series, so all three are rendered in the second graph.
+```
+  ...
+  "spec": {
+    "type": "line",
+    ...
+  }
+```
 
+Similarly to display bar chart we've used `bar` type.
+
+```
+  ...
+  "spec": {
+    "type": "bar",
+    ...
+  }
+```
+
+We use `Date` field to display data over time, by setting `group` attribute to the field name
+
+```
+  ...
+  "spec": {
+    ...
+    "group": "Date",
+    ...
+  }
+```
+
+You can set any number of fields to display in `series` attribute as an array
+
+```
+  ...
+  "spec": {
+    ...
+    "series": [
+      "VIXHigh",
+      "VIXLow"
+    ]
+ }
+```
+
+In our case we've displayed line graph for `VIXHigh` and `VIXLow` and similarly, in the bar chart, we use all four series and all of them are presented in chart.
 
 Outside of `spec` attribute there are some other important parameters to note:
 
@@ -79,3 +120,5 @@ Outside of `spec` attribute there are some other important parameters to note:
     </tr>
   </tbody>
 </table>
+
+[datapackage.json]: http://specs.frictionlessdata.io/data-package/#specification
