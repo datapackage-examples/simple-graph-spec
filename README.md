@@ -1,18 +1,89 @@
-This is an example Data Package, that demonstrates how to build the simple and nice graphs using the "Simple Graph Spec". We are using CBOE Volatility Index (VIX) time-series dataset for 2015-2016 as an example to create line and bar charts.
+This is an example dataset, that demonstrates how to build the simple and nice graphs using the "Simple Graph Spec". We are using CBOE Volatility Index (VIX) time-series dataset for 2015-2016 as an example to create line and bar charts.
 
 ## Views
 
-We assume that you are familiar with what [datapackage.json][datapackage.json] is and it's specifications.
+We assume that you are familiar with what [datapackage.json][datapackage.json] is and its specifications.
 
-To create graphs for your tabular Data Package, the `datapackage.json` should include the `views` attribute that is responsible for visualizations.
+To create graphs for your tabular data, the `datapackage.json` should include the `views` attribute that is responsible for visualizations.
 
-"Simple Graph Spec" is the quickest and easiest way to build a graph . To use it, inside `views` you should set `specType` to "simple" and define some graph specifications in `spec`. See example datapackage.json:
+"Simple Graph Spec" is the quickest and easiest way to build a graph. To use it, inside `views` you should set `specType` to `simple` and define some graph specifications in `spec` property. See example `datapackage.json`:
 
-{{ datapackage.json }}
+```
+{
+  "name": "simple-graph-spec",
+  "title": "Simple Graph Spec Tutorial",
+  "sources": [{
+    "name": "CBOE VIX Page",
+    "web": "http://www.cboe.com/micro/vix/historical.aspx"
+  }],
+  "resources": [
+    {
+      "name": "vix-daily",
+      "path": "data/vix-daily.csv",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "schema": {
+        "fields": [
+          {
+            "name": "Date",
+            "type": "date",
+            "description": ""
+          },
+          {
+            "name": "VIXOpen",
+            "type": "number",
+            "description": ""
+          },
+          {
+            "name": "VIXHigh",
+            "type": "number",
+            "description": ""
+          },
+          {
+            "name": "VIXLow",
+            "type": "number",
+            "description": ""
+          },
+          {
+            "name": "VIXClose",
+            "type": "number",
+            "description": ""
+          }
+        ],
+        "primaryKey": "Date"
+      }
+    }
+  ],
+  "views": [
+    {
+      "name": "simple-view-line",
+      "title": "tutorial-on-simple-views-line",
+      "resources": ["vix-daily"],
+      "specType": "simple",
+      "spec": {
+        "type": "line",
+        "group": "Date",
+        "series": ["VIXHigh", "VIXLow"]
+      }
+    },
+    {
+      "name": "simple-view-bar",
+      "title": "tutorial-on-simple-views-bar",
+      "resources": ["vix-daily"],
+      "specType": "simple",
+      "spec": {
+        "type": "bar",
+        "group": "Date",
+        "series": ["VIXOpen", "VIXOpen", "VIXHigh", "VIXLow"]
+      }
+    }
+  ]
+}
+```
 
 <br>
 
-inside `spec` attribute, there are only 3 properties enough to define graph specifications:
+Only 3 properties enough to define graph specifications inside `spec` property:
 
 <table class="table table-bordered table-striped resource-summary">
   <thead>
@@ -41,7 +112,7 @@ inside `spec` attribute, there are only 3 properties enough to define graph spec
   </tbody>
 </table>
 
-You can define multiple views for your Data Package. For example, to display line graph as presented above, we defined graph `type` to be a `line`
+You can define multiple views for your dataset. For example, to display line graph as presented above, we defined graph `type` to be a `line`:
 
 ```
   ...
@@ -51,7 +122,7 @@ You can define multiple views for your Data Package. For example, to display lin
   }
 ```
 
-Similarly to display bar chart we've used `bar` type.
+Similarly to display bar chart we've used `bar` type:
 
 ```
   ...
@@ -61,7 +132,7 @@ Similarly to display bar chart we've used `bar` type.
   }
 ```
 
-We use `Date` field to display data over time, by setting `group` attribute to the field name
+We use `Date` field to display data over time, by setting `group` attribute to the field name:
 
 ```
   ...
@@ -72,7 +143,7 @@ We use `Date` field to display data over time, by setting `group` attribute to t
   }
 ```
 
-You can set any number of fields to display in `series` attribute as an array
+You can set any number of fields to display in `series` attribute as an array:
 
 ```
   ...
@@ -121,4 +192,4 @@ Outside of `spec` attribute there are some other important parameters to note:
   </tbody>
 </table>
 
-[datapackage.json]: http://specs.frictionlessdata.io/data-package/#specification
+[datapackage.json]: http://specs.frictionlessdata.io/data-package/
