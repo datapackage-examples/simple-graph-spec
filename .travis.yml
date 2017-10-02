@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+- '8'
+install:
+- npm install -g git+https://github.com/datahq/datahub-cli.git
+script: data push ./ --published
+env:
+  global:
+    id: examples
+    username: examples
+  TRAVIS_SECURE_ENV_VARS: true
